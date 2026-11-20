@@ -1,0 +1,310 @@
+@prefix ex: <http://example.org/mkr/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:arrivesAt a owl:ObjectProperty ;
+    rdfs:domain ex:Train ;
+    rdfs:range ex:City ;
+    rdfs:subPropertyOf ex:connects .
+
+ex:confidence a owl:DatatypeProperty ;
+    rdfs:domain rdf:Statement ;
+    rdfs:range xsd:decimal .
+
+ex:departsFrom a owl:ObjectProperty ;
+    rdfs:domain ex:Train ;
+    rdfs:range ex:City ;
+    rdfs:subPropertyOf ex:connects .
+
+ex:departureDate a owl:DatatypeProperty ;
+    rdfs:domain ex:Train ;
+    rdfs:range xsd:date .
+
+ex:departureTime a owl:DatatypeProperty ;
+    rdfs:domain ex:Train ;
+    rdfs:range xsd:time .
+
+ex:durationMin a owl:DatatypeProperty ;
+    rdfs:domain ex:Train ;
+    rdfs:range xsd:integer .
+
+ex:fromBusyCountry a owl:DatatypeProperty ;
+    rdfs:domain ex:Train ;
+    rdfs:range xsd:boolean .
+
+ex:locatedIn a owl:ObjectProperty ;
+    rdfs:domain ex:City ;
+    rdfs:range ex:Country .
+
+ex:operates a owl:ObjectProperty ;
+    rdfs:domain ex:Operator ;
+    rdfs:range ex:Train ;
+    owl:inverseOf ex:operatedBy .
+
+ex:priceEur a owl:DatatypeProperty ;
+    rdfs:domain ex:Train ;
+    rdfs:range xsd:decimal .
+
+ex:reportedBy a owl:ObjectProperty ;
+    rdfs:domain rdf:Statement ;
+    rdfs:range ex:Source .
+
+<http://example.org/mkr/stmt/TR-101-delay-1> a rdf:Statement ;
+    ex:confidence 0.9 ;
+    ex:reportedBy <http://example.org/mkr/source/RailWatch> ;
+    rdf:object 25 ;
+    rdf:predicate ex:hasDelayMinutes ;
+    rdf:subject <http://example.org/mkr/train/TR-101> .
+
+<http://example.org/mkr/stmt/TR-205-delay-1> a rdf:Statement ;
+    ex:confidence 0.6 ;
+    ex:reportedBy <http://example.org/mkr/source/Passengers> ;
+    rdf:object 15 ;
+    rdf:predicate ex:hasDelayMinutes ;
+    rdf:subject <http://example.org/mkr/train/TR-205> .
+
+<http://example.org/mkr/stmt/TR-310-delay-1> a rdf:Statement ;
+    ex:confidence 0.7 ;
+    ex:reportedBy <http://example.org/mkr/source/RailWatch> ;
+    rdf:object 10 ;
+    rdf:predicate ex:hasDelayMinutes ;
+    rdf:subject <http://example.org/mkr/train/TR-310> .
+
+<http://example.org/mkr/stmt/TR-310-delay-2> a rdf:Statement ;
+    ex:confidence 0.5 ;
+    ex:reportedBy <http://example.org/mkr/source/Passengers> ;
+    rdf:object 40 ;
+    rdf:predicate ex:hasDelayMinutes ;
+    rdf:subject <http://example.org/mkr/train/TR-310> .
+
+<http://example.org/mkr/stmt/TR-418-delay-1> a rdf:Statement ;
+    ex:confidence 0.95 ;
+    ex:reportedBy <http://example.org/mkr/source/RailWatch> ;
+    rdf:object 5 ;
+    rdf:predicate ex:hasDelayMinutes ;
+    rdf:subject <http://example.org/mkr/train/TR-418> .
+
+ex:trainCount a owl:DatatypeProperty ;
+    rdfs:domain ex:Operator ;
+    rdfs:range xsd:integer .
+
+<http://example.org/mkr/country/Austria> a ex:Country ;
+    rdfs:label "Austria"@en .
+
+<http://example.org/mkr/country/Czechia> a ex:Country ;
+    rdfs:label "Czechia"@en .
+
+ex:operatedBy a owl:ObjectProperty ;
+    rdfs:domain ex:Train ;
+    rdfs:range ex:Operator .
+
+<http://example.org/mkr/operator/AlpEx> a ex:Operator ;
+    rdfs:label "AlpEx"@en ;
+    ex:operates <http://example.org/mkr/train/TR-700> ;
+    ex:trainCount 1 .
+
+<http://example.org/mkr/train/TR-412> a ex:Train ;
+    ex:arrivesAt <http://example.org/mkr/city/Prague> ;
+    ex:departsFrom <http://example.org/mkr/city/Berlin> ;
+    ex:departureDate "2026-07-15"^^xsd:date ;
+    ex:departureTime "09:15:00"^^xsd:time ;
+    ex:durationMin 260 ;
+    ex:fromBusyCountry true ;
+    ex:operatedBy <http://example.org/mkr/operator/EuroRail> .
+
+<http://example.org/mkr/train/TR-415> a ex:ExpressTrain ;
+    ex:arrivesAt <http://example.org/mkr/city/Dresden> ;
+    ex:departsFrom <http://example.org/mkr/city/Berlin> ;
+    ex:departureDate "2026-07-15"^^xsd:date ;
+    ex:departureTime "11:00:00"^^xsd:time ;
+    ex:durationMin 105 ;
+    ex:fromBusyCountry true ;
+    ex:operatedBy <http://example.org/mkr/operator/EuroRail> ;
+    ex:priceEur 15.00 .
+
+<http://example.org/mkr/train/TR-520> a ex:ExpressTrain,
+        ex:NightTrain ;
+    ex:arrivesAt <http://example.org/mkr/city/Krakow> ;
+    ex:departsFrom <http://example.org/mkr/city/Warsaw> ;
+    ex:departureDate "2026-07-17"^^xsd:date ;
+    ex:departureTime "23:30:00"^^xsd:time ;
+    ex:durationMin 150 ;
+    ex:fromBusyCountry true ;
+    ex:operatedBy <http://example.org/mkr/operator/NightLine> ;
+    ex:priceEur 12.00 .
+
+<http://example.org/mkr/train/TR-521> a ex:NightTrain ;
+    ex:arrivesAt <http://example.org/mkr/city/Vienna> ;
+    ex:departsFrom <http://example.org/mkr/city/Krakow> ;
+    ex:departureDate "2026-07-17"^^xsd:date ;
+    ex:departureTime "01:15:00"^^xsd:time ;
+    ex:durationMin 380 ;
+    ex:fromBusyCountry true ;
+    ex:operatedBy <http://example.org/mkr/operator/NightLine> ;
+    ex:priceEur 34.00 .
+
+<http://example.org/mkr/train/TR-601> a ex:Train ;
+    ex:arrivesAt <http://example.org/mkr/city/Kyiv> ;
+    ex:departsFrom <http://example.org/mkr/city/Odesa> ;
+    ex:departureDate "2026-07-18"^^xsd:date ;
+    ex:departureTime "18:40:00"^^xsd:time ;
+    ex:durationMin 425 ;
+    ex:fromBusyCountry true ;
+    ex:operatedBy <http://example.org/mkr/operator/IntercityPlus> .
+
+<http://example.org/mkr/train/TR-700> a ex:Train ;
+    ex:arrivesAt <http://example.org/mkr/city/Prague> ;
+    ex:departsFrom <http://example.org/mkr/city/Vienna> ;
+    ex:departureDate "2026-07-19"^^xsd:date ;
+    ex:departureTime "06:10:00"^^xsd:time ;
+    ex:durationMin 245 ;
+    ex:operatedBy <http://example.org/mkr/operator/AlpEx> ;
+    ex:priceEur 29.00 .
+
+<http://example.org/mkr/city/Berlin> a ex:City ;
+    rdfs:label "Berlin"@en ;
+    ex:locatedIn <http://example.org/mkr/country/Germany> ;
+    owl:sameAs wd:Q64 .
+
+<http://example.org/mkr/city/Dresden> a ex:City ;
+    rdfs:label "Dresden"@en ;
+    ex:locatedIn <http://example.org/mkr/country/Germany> .
+
+<http://example.org/mkr/city/Krakow> a ex:City ;
+    rdfs:label "Krakow"@en ;
+    ex:locatedIn <http://example.org/mkr/country/Poland> ;
+    owl:sameAs wd:Q31487 .
+
+<http://example.org/mkr/city/Lviv> a ex:City ;
+    rdfs:label "Lviv"@en ;
+    ex:locatedIn <http://example.org/mkr/country/Ukraine> ;
+    owl:sameAs wd:Q36036 .
+
+<http://example.org/mkr/city/Odesa> a ex:City ;
+    rdfs:label "Odesa"@en ;
+    ex:locatedIn <http://example.org/mkr/country/Ukraine> ;
+    owl:sameAs wd:Q1874 .
+
+<http://example.org/mkr/city/Vienna> a ex:City ;
+    rdfs:label "Vienna"@en ;
+    ex:locatedIn <http://example.org/mkr/country/Austria> ;
+    owl:sameAs wd:Q1741 .
+
+<http://example.org/mkr/city/Warsaw> a ex:City ;
+    rdfs:label "Warsaw"@en ;
+    ex:locatedIn <http://example.org/mkr/country/Poland> ;
+    owl:sameAs wd:Q270 .
+
+ex:connects a owl:ObjectProperty ;
+    rdfs:domain ex:Train ;
+    rdfs:range ex:City .
+
+<http://example.org/mkr/country/Germany> a ex:Country ;
+    rdfs:label "Germany"@en .
+
+<http://example.org/mkr/country/Poland> a ex:Country ;
+    rdfs:label "Poland"@en .
+
+<http://example.org/mkr/source/Passengers> a ex:Source ;
+    rdfs:label "Passengers"@en .
+
+<http://example.org/mkr/train/TR-101> a ex:Train ;
+    ex:arrivesAt <http://example.org/mkr/city/Lviv> ;
+    ex:departsFrom <http://example.org/mkr/city/Kyiv> ;
+    ex:departureDate "2026-07-12"^^xsd:date ;
+    ex:departureTime "07:05:00"^^xsd:time ;
+    ex:durationMin 330 ;
+    ex:fromBusyCountry true ;
+    ex:operatedBy <http://example.org/mkr/operator/IntercityPlus> ;
+    ex:priceEur 24.50 .
+
+<http://example.org/mkr/train/TR-205> a ex:NightTrain ;
+    ex:arrivesAt <http://example.org/mkr/city/Warsaw> ;
+    ex:departsFrom <http://example.org/mkr/city/Lviv> ;
+    ex:departureDate "2026-07-13"^^xsd:date ;
+    ex:departureTime "22:40:00"^^xsd:time ;
+    ex:durationMin 540 ;
+    ex:fromBusyCountry true ;
+    ex:operatedBy <http://example.org/mkr/operator/NightLine> ;
+    ex:priceEur 39.00 .
+
+<http://example.org/mkr/train/TR-418> a ex:ExpressTrain ;
+    ex:arrivesAt <http://example.org/mkr/city/Prague> ;
+    ex:departsFrom <http://example.org/mkr/city/Dresden> ;
+    ex:departureDate "2026-07-16"^^xsd:date ;
+    ex:departureTime "08:20:00"^^xsd:time ;
+    ex:durationMin 130 ;
+    ex:fromBusyCountry true ;
+    ex:operatedBy <http://example.org/mkr/operator/EuroRail> ;
+    ex:priceEur 19.50 .
+
+ex:ExpressTrain a owl:Class ;
+    rdfs:subClassOf ex:Train .
+
+ex:NightTrain a owl:Class ;
+    rdfs:subClassOf ex:Train .
+
+ex:Source a owl:Class .
+
+<http://example.org/mkr/city/Kyiv> a ex:City ;
+    rdfs:label "Kyiv"@en ;
+    ex:locatedIn <http://example.org/mkr/country/Ukraine> ;
+    owl:sameAs wd:Q1899 .
+
+<http://example.org/mkr/city/Prague> a ex:City ;
+    rdfs:label "Prague"@en ;
+    ex:locatedIn <http://example.org/mkr/country/Czechia> ;
+    owl:sameAs wd:Q1085 .
+
+<http://example.org/mkr/country/Ukraine> a ex:Country ;
+    rdfs:label "Ukraine"@en .
+
+<http://example.org/mkr/operator/EuroRail> a ex:Operator ;
+    rdfs:label "EuroRail"@en ;
+    ex:operates <http://example.org/mkr/train/TR-412>,
+        <http://example.org/mkr/train/TR-415>,
+        <http://example.org/mkr/train/TR-418> ;
+    ex:trainCount 3 .
+
+<http://example.org/mkr/operator/IntercityPlus> a ex:Operator ;
+    rdfs:label "Intercity+"@en ;
+    ex:operates <http://example.org/mkr/train/TR-101>,
+        <http://example.org/mkr/train/TR-310>,
+        <http://example.org/mkr/train/TR-601> ;
+    ex:trainCount 3 .
+
+<http://example.org/mkr/operator/NightLine> a ex:Operator ;
+    rdfs:label "NightLine"@en ;
+    ex:operates <http://example.org/mkr/train/TR-205>,
+        <http://example.org/mkr/train/TR-520>,
+        <http://example.org/mkr/train/TR-521> ;
+    ex:trainCount 3 .
+
+<http://example.org/mkr/source/RailWatch> a ex:Source ;
+    rdfs:label "RailWatch"@en .
+
+<http://example.org/mkr/train/TR-310> a ex:Train ;
+    ex:arrivesAt <http://example.org/mkr/city/Odesa> ;
+    ex:departsFrom <http://example.org/mkr/city/Kyiv> ;
+    ex:departureDate "2026-07-14"^^xsd:date ;
+    ex:departureTime "06:30:00"^^xsd:time ;
+    ex:durationMin 420 ;
+    ex:fromBusyCountry true ;
+    ex:operatedBy <http://example.org/mkr/operator/IntercityPlus> ;
+    ex:priceEur 18.00 .
+
+ex:hasDelayMinutes a owl:DatatypeProperty ;
+    rdfs:domain ex:Train ;
+    rdfs:range xsd:integer .
+
+ex:Country a owl:Class .
+
+ex:Operator a owl:Class .
+
+ex:City a owl:Class .
+
+ex:Train a owl:Class .
+

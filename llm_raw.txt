@@ -1,0 +1,49 @@
+===== Частина А, спроба 1 =====
+@prefix ex: <http://example.org/mkr/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://example.org/mkr/train/TR-800> a ex:NightTrain ;
+    ex:operatedBy <http://example.org/mkr/operator/NightLine> ;
+    ex:departsFrom <http://example.org/mkr/city/Vienna> ;
+    ex:arrivesAt <http://example.org/mkr/city/Krakow> ;
+    ex:departureDate "2026-07-17"^^xsd:date ;
+    ex:departureTime "23:10:00"^^xsd:time ;
+    ex:durationMin 330 ;
+    ex:priceEur 31.0 .
+
+<http://example.org/mkr/operator/NightLine> a ex:Operator ;
+    ex:operates <http://example.org/mkr/train/TR-800> .
+
+<http://example.org/mkr/city/Vienna> a ex:City ;
+    ex:locatedIn <http://example.org/mkr/country/Austria> .
+
+<http://example.org/mkr/city/Krakow> a ex:City ;
+    ex:locatedIn <http://example.org/mkr/country/Poland> .
+
+<http://example.org/mkr/train/TR-801> a ex:Train ;
+    ex:operatedBy <http://example.org/mkr/operator/AlpEx> ;
+    ex:departsFrom <http://example.org/mkr/city/Prague> ;
+    ex:arrivesAt <http://example.org/mkr/city/Vienna> ;
+    ex:departureDate "2026-07-20"^^xsd:date ;
+    ex:departureTime "08:00:00"^^xsd:time ;
+    ex:durationMin 245 .
+
+<http://example.org/mkr/operator/AlpEx> a ex:Operator ;
+    ex:operates <http://example.org/mkr/train/TR-801> .
+
+<http://example.org/mkr/city/Prague> a ex:City ;
+    ex:locatedIn <http://example.org/mkr/country/Czechia> .
+
+===== Частина Б =====
+PREFIX ex: <http://example.org/mkr/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?operator WHERE {
+  ?trainExpress rdf:type ex:ExpressTrain ;
+                ex:operatedBy ?operator .
+  ?trainNight rdf:type ex:NightTrain ;
+              ex:operatedBy ?operator .
+}

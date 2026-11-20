@@ -1,0 +1,13 @@
+id,operator,from,to,date,time,duration_min,price_eur,note
+tr-101,Intercity+,kyiv,Lviv,2026-07-12,07:05,330,24.50,delay=25;by=RailWatch;conf=0.9
+TR-101 ,Intercity+,Kyiv,Lviv,12.07.2026,7:05,330,,
+TR-205,NightLine,LVIV,Warsaw,2026-07-13,22:40,540,39.00,
+TR-310,Intercity+,KYIV,Odesa,2026-07-14,06:30,420,18.00,delay=10;by=RailWatch;conf=0.7|delay=40;by=Passengers;conf=0.5
+tr-412,EuroRail,Berlin,Prague,15.07.2026,09:15,260,,
+TR-415,EuroRail,Berlin,Dresden,2026-07-15,11:00,105,15.00,
+TR-418,EuroRail,Dresden,Prague,16.07.2026,08:20,130,19.50,delay=5;by=RailWatch;conf=0.95
+TR-520,NightLine,Warsaw,Krakow,2026-07-17,23:30,150,12.00,
+TR-521,NightLine,krakow,Vienna,17.07.2026,01:15,380,34.00,
+TR-601,Intercity+,Odesa,Kyiv,2026-07-18,18:40,425,,
+TR-205,NightLine,Lviv,Warsaw,13.07.2026,22:40,540,39.00,delay=15;by=Passengers;conf=0.6
+TR-700,AlpEx,Vienna,Prague,2026-07-19,06:10,245,29.00,

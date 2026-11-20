@@ -1,0 +1,23 @@
+# Q2: регіони (P131) Польщі з найбільшою кількістю замків (>= 3),
+# кожен замок рахується один раз; maxValue — найбільша висота серед замків регіону.
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+
+SELECT ?region ?regionLabel ?cnt ?maxValue WHERE {
+  {
+    SELECT ?region (COUNT(DISTINCT ?item) AS ?cnt) (MAX(?v) AS ?maxValue) WHERE {
+      ?item wdt:P17 wd:Q36 ;
+            wdt:P31/wdt:P279* wd:Q23413 ;
+            wdt:P131 ?region .
+      FILTER NOT EXISTS { ?item wdt:P576 ?ended . }
+      OPTIONAL { ?item wdt:P2044 ?v . }
+    }
+    GROUP BY ?region
+    HAVING (COUNT(DISTINCT ?item) >= 3)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC(?cnt) ?region
+LIMIT 10

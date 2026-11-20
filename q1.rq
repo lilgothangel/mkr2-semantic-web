@@ -1,0 +1,28 @@
+# Q1: замки (Q23413 та підкласи) у Польщі (Q36), найбільша висота (P2044) > порогу,
+# офіційний сайт (P856) — необов'язковий, один на об'єкт.
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+
+SELECT ?item ?itemLabel ?value ?website WHERE {
+  {
+    SELECT ?item ?value (SAMPLE(?site) AS ?website) WHERE {
+      {
+        SELECT ?item (MAX(?v) AS ?value) WHERE {
+          ?item wdt:P17 wd:Q36 ;
+                wdt:P31/wdt:P279* wd:Q23413 ;
+                wdt:P2044 ?v .
+          FILTER NOT EXISTS { ?item wdt:P576 ?ended . }
+        }
+        GROUP BY ?item
+        HAVING (MAX(?v) > 150)  # THRESHOLD
+      }
+      OPTIONAL { ?item wdt:P856 ?site . }
+    }
+    GROUP BY ?item ?value
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY DESC(?value) ?item
+LIMIT 20

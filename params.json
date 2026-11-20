@@ -1,0 +1,17 @@
+{
+  "express_max_min": 150,
+  "night_from": "22:00",
+  "night_until": "06:00",
+  "country": {
+    "Kyiv": "Ukraine", "Lviv": "Ukraine", "Odesa": "Ukraine",
+    "Warsaw": "Poland", "Krakow": "Poland",
+    "Berlin": "Germany", "Dresden": "Germany",
+    "Prague": "Czechia", "Vienna": "Austria"
+  },
+  "wikidata": {
+    "Kyiv": "Q1899", "Lviv": "Q36036", "Odesa": "Q1874",
+    "Warsaw": "Q270", "Krakow": "Q31487", "Berlin": "Q64",
+    "Prague": "Q1085", "Vienna": "Q1741",
+    "Dresden": null
+  }
+}

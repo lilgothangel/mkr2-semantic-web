@@ -1,0 +1,37 @@
+=== llm_task.py, 2026-11-20T18:13:32, модель gemini-3.1-flash-lite ===
+
+--- Частина А: витягування фактів ---
+Спроба 1: відповідь валідна (25 тріплів).
+Злиття: graph.ttl 246 тріплів -> graph_full.ttl 263 тріплів (+17); модель повернула 25, з них 8 уже були в графі.
+Розбіжності з еталоном за правилами Завдання 1:
+  не знайдено
+Агрегати, не перераховані під час злиття:
+  trainCount ex:operator/AlpEx = 2 (у graph_full.ttl — 1)
+  trainCount ex:operator/NightLine = 4 (у graph_full.ttl — 3)
+  ex:train/TR-700 має отримати fromBusyCountry true
+  ex:train/TR-800 має отримати fromBusyCountry true
+
+--- Частина Б: запит природною мовою ---
+Запит моделі:
+PREFIX ex: <http://example.org/mkr/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?operator WHERE {
+  ?trainExpress rdf:type ex:ExpressTrain ;
+                ex:operatedBy ?operator .
+  ?trainNight rdf:type ex:NightTrain ;
+              ex:operatedBy ?operator .
+}
+
+Власний запит:
+PREFIX ex: <http://example.org/mkr/>
+SELECT DISTINCT ?operator WHERE {
+  ?n ex:operatedBy ?operator ; a ex:NightTrain .
+  ?e ex:operatedBy ?operator ; a ex:ExpressTrain .
+}
+ORDER BY ?operator
+Результат власного запиту: http://example.org/mkr/operator/NightLine
+Перевірку пройдено. Результат запиту моделі:
+  http://example.org/mkr/operator/NightLine
+Порівняння з власним запитом: збігається
